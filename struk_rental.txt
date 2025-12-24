@@ -1,0 +1,21 @@
+=============================
+No Transaksi : 1
+Nama         : t1
+Kamera       : Nikon D7500
+Total Bayar  : Rp 1536000
+=============================
+
+=============================
+ID Transaksi : 1
+Nama         : t1
+Kamera       : Canon EOS 90D
+Total Bayar  : Rp 1440000
+=============================
+
+=============================
+ID Transaksi : 1
+Nama         : yasin
+Kamera       : Canon EOS 90D
+Total Bayar  : Rp 1440000
+=============================
+
