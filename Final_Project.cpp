@@ -145,6 +145,9 @@ public:
         int totalBayar = total - potongan;
 
         cout << endl << "=== struk sewa ===" << endl;
+        cout << "harga normal: rp " << total << endl;
+        cout << "diskon: " << (int)(diskon * 100) << "%" << endl;
+        cout << "potongan: rp " << potongan << endl;
         cout << "total bayar: rp " << totalBayar << endl;
 
         while (true) {
