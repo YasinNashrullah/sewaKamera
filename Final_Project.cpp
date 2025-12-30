@@ -4,11 +4,13 @@
 
 using namespace std;
 
+// struktur data untuk kamera
 struct DataKamera {
     string nama;
     int harga;
 };
 
+// struktur data untuk transaksi
 struct Transaksi {
     int id;
     string namaPenyewa;
@@ -18,8 +20,9 @@ struct Transaksi {
     int status; // 1 disewa 0 dikembalikan
 };
 
-class RentalSystem {
-private:
+// struct utama sistem rental
+struct RentalSystem {
+    // data global dalam struct
     DataKamera daftarKamera[100];
     Transaksi daftarTransaksi[100];
     int jumlahKamera;
@@ -27,7 +30,6 @@ private:
     int totalPendapatan;
     int nomorTransaksi;
 
-public:
     // konstruktor untuk menyiapkan data awal
     RentalSystem() {
         jumlahKamera = 0;
@@ -121,8 +123,7 @@ public:
 
         cout << endl << "=== daftar kamera ===" << endl;
         for (int i = 0; i < jumlahKamera; i++) {
-            cout << i + 1 << ". " << daftarKamera[i].nama 
-                 << " - harga: " << daftarKamera[i].harga << " per hari" << endl;
+            cout << i + 1 << ". " << daftarKamera[i].nama << " - harga: " << daftarKamera[i].harga << " per hari" << endl;
         }
 
         cout << endl << "pilih kamera: "; cin >> pilihan;
