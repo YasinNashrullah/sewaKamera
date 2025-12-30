@@ -93,15 +93,18 @@ public:
                 case 2: prosesPengembalian(); break;
                 case 3: sortKamera(); break;
                 case 4: laporanPendapatan(); break;
-                case 5: 
-                    cout << "log out berhasil" << endl;
-                    tekanEnter();
-                    return; 
+                case 5: logout(); break;
                 default: 
                     cout << "menu tidak ada" << endl; 
                     tekanEnter();
             }
         } while (true);
+    }
+
+    void logout(){
+        cout << "log out berhasil" << endl;
+        tekanEnter();
+        return;
     }
 
     // fungsi untuk melakukan sewa kamera
