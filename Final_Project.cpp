@@ -1,274 +1,266 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
+#include <iostream>         // pustaka input output
+#include <string>           // pustaka untuk string
+#include <cstdlib>          // pustaka sistem
 
-using namespace std;
+using namespace std;        // menggunakan namespace standar
 
-// struktur data untuk kamera
-struct DataKamera {
-    string nama;
-    int harga;
+// struktur data
+struct DataKamera {         // definisi struktur data
+    string nama;            // variabel nama kamera
+    int harga;              // variabel harga sewa
 };
 
-// struktur data untuk transaksi
-struct Transaksi {
-    int id;
-    string namaPenyewa;
-    string namaKamera;
-    int hargaSewa;
-    int lamaSewa;
-    int status; // 1 disewa 0 dikembalikan
+struct Transaksi {          // struktur data transaksi
+    int id;                 // id transaksi
+    string namaPenyewa;     // nama penyewa
+    string namaKamera;      // nama kamera disewa
+    int hargaSewa;          // harga sewa per hari
+    int lamaSewa;           // durasi sewa
+    int status;             // status sewa 1 aktif 0 kembali
 };
 
-// struct utama sistem rental
-struct RentalSystem {
-    // data global dalam struct
-    DataKamera daftarKamera[100];
-    Transaksi daftarTransaksi[100];
-    int jumlahKamera;
-    int jumlahTransaksi;
-    int totalPendapatan;
-    int nomorTransaksi;
+struct RentalSystem {       // struktur utama sistem
+    DataKamera daftarKamera[100]; // array data kamera
+    Transaksi daftarTransaksi[100]; // array data transaksi
+    int jumlahKamera;       // jumlah kamera tersedia
+    int jumlahTransaksi;    // jumlah transaksi tercatat
+    int totalPendapatan;    // total pendapatan rental
+    int nomorTransaksi;     // counter nomor transaksi
 
-    // konstruktor untuk menyiapkan data awal
-    RentalSystem() {
-        jumlahKamera = 0;
-        jumlahTransaksi = 0;
-        totalPendapatan = 0;
-        nomorTransaksi = 1;
+    // konstruktor
+    RentalSystem() {        // konstruktor sistem
+        jumlahKamera = 0;   // inisialisasi jumlah kamera
+        jumlahTransaksi = 0; // inisialisasi jumlah transaksi
+        totalPendapatan = 0; // inisialisasi pendapatan
+        nomorTransaksi = 1; // inisialisasi nomor awal
 
-        // data awal kamera
-        daftarKamera[jumlahKamera].nama = "Canon EOS 90D";
-        daftarKamera[jumlahKamera].harga = 150000;
-        jumlahKamera++;
+        daftarKamera[jumlahKamera].nama = "Canon EOS 90D"; // nama kamera 1
+        daftarKamera[jumlahKamera].harga = 150000;         // harga kamera 1
+        jumlahKamera++;     // tambah jumlah kamera
 
-        daftarKamera[jumlahKamera].nama = "Sony A6400";
-        daftarKamera[jumlahKamera].harga = 180000;
-        jumlahKamera++;
+        daftarKamera[jumlahKamera].nama = "Sony A6400";    // nama kamera 2
+        daftarKamera[jumlahKamera].harga = 180000;         // harga kamera 2
+        jumlahKamera++;     // tambah jumlah kamera
 
-        daftarKamera[jumlahKamera].nama = "Nikon D7500";
-        daftarKamera[jumlahKamera].harga = 160000;
-        jumlahKamera++;
+        daftarKamera[jumlahKamera].nama = "Nikon D7500";   // nama kamera 3
+        daftarKamera[jumlahKamera].harga = 160000;         // harga kamera 3
+        jumlahKamera++;     // tambah jumlah kamera
     }
 
-    // fungsi bantuan untuk pause
-    void tekanEnter() {
-        cout << "tekan enter untuk lanjut...";
-        cin.get(); 
+    // fitur bantuan
+    void tekanEnter() {     // fungsi jeda program
+        cout << "tekan enter untuk lanjut..."; // pesan jeda
+        cin.get();          // tunggu input enter
     }
 
-    // fungsi untuk masuk sebagai admin
-    void login() {
-        string user, pass;
-        while (true) {
-            system("cls");
-            cout << "=== login admin ===" << endl;
-            cout << "username: "; cin >> user;
-            cout << "password: "; cin >> pass;
-            cin.ignore(); // bersihkan enter dari cin >> pass
+    // fitur navigasi
+    void login() {          // fungsi login admin
+        string user, pass;  // variabel user dan password
+        while (true) {      // loop login selamanya
+            system("cls");  // bersihkan layar
+            cout << "login admin" << endl; // judul login
+            cout << "username: "; cin >> user; // input username
+            cout << "password: "; cin >> pass; // input password
+            cin.ignore();   // bersihkan buffer input
 
-            if (user == "admin" && pass == "12") {
-                break;
-            } else {
-                cout << "login gagal" << endl;
-                tekanEnter();
+            if (user == "admin" && pass == "12") { // cek kredensial
+                break;      // keluar loop jika benar
+            } else {        // jika salah
+                cout << "login gagal" << endl; // pesan gagal
+                tekanEnter(); // minta tekan enter
             }
         }
     }
 
-    // fungsi untuk menampilkan menu utama
-    void tampilkanMenu() {
-        int menu;
-        do {
-            system("cls");
-            cout << "=== rental kamera digital ===" << endl;
-            cout << "1. sewa kamera" << endl;
-            cout << "2. pengembalian kamera" << endl;
-            cout << "3. urutkan harga kamera" << endl;
-            cout << "4. laporan pendapatan" << endl;
-            cout << "5. logout" << endl;
-            cout << "pilih menu: "; cin >> menu;
-            cin.ignore(); // bersihkan enter
+    void tampilkanMenu() {  // fungsi menu utama
+        int menu;           // variabel pilihan menu
+        do {                // loop menu utama
+            system("cls");  // bersihkan layar
+            cout << "rental kamera digital" << endl; // judul program
+            cout << "1. sewa kamera" << endl; // menu 1
+            cout << "2. pengembalian kamera" << endl; // menu 2
+            cout << "3. urutkan harga kamera" << endl; // menu 3
+            cout << "4. laporan pendapatan" << endl; // menu 4
+            cout << "5. logout" << endl; // menu 5
+            cout << "pilih menu: "; cin >> menu; // input pilihan
+            cin.ignore();   // bersihkan buffer
 
-            switch (menu) {
-                case 1: prosesSewa(); break;
-                case 2: prosesPengembalian(); break;
-                case 3: sortKamera(); break;
-                case 4: laporanPendapatan(); break;
-                case 5: 
-                    cout << "log out berhasil" << endl;
-                    tekanEnter();
-                    return; 
-                default: 
-                    cout << "menu tidak ada" << endl; 
-                    tekanEnter();
+            switch (menu) { // seleksi menu
+                case 1: prosesSewa(); break; // jalankan sewa
+                case 2: prosesPengembalian(); break; // jalankan kembali
+                case 3: sortKamera(); break; // jalankan urut
+                case 4: laporanPendapatan(); break; // jalankan laporan
+                case 5:     // menu keluar
+                    cout << "log out berhasil" << endl; // pesan keluar
+                    tekanEnter(); // jeda sebentar
+                    return; // keluar fungsi
+                default:    // pilihan salah
+                    cout << "menu tidak ada" << endl; // pesan salah
+                    tekanEnter(); // jeda sebentar
             }
-        } while (true);
+        } while (true);     // ulangi terus
     }
 
-    // fungsi untuk melakukan sewa kamera
-    void prosesSewa() {
-        system("cls");
-        if (jumlahTransaksi >= 100) {
-            cout << "penyimpanan penuh" << endl;
-            tekanEnter();
-            return;
+    // fitur utama
+    void prosesSewa() {     // fungsi proses sewa
+        system("cls");      // bersihkan layar
+        if (jumlahTransaksi >= 100) { // cek kapasitas array
+            cout << "penyimpanan penuh" << endl; // pesan penuh
+            tekanEnter();   // jeda
+            return;         // batal sewa
         }
 
-        string nama;
-        int pilihan, lama, bayar;
+        string nama;        // variabel nama penyewa
+        int pilihan, lama, bayar; // variabel input sewa
         
-        cout << "nama pelanggan: ";
-        getline(cin, nama);
+        cout << "nama pelanggan: "; // prompt nama
+        getline(cin, nama); // input nama lengkap
 
-        cout << endl << "=== daftar kamera ===" << endl;
-        for (int i = 0; i < jumlahKamera; i++) {
-            cout << i + 1 << ". " << daftarKamera[i].nama << " - harga: " << daftarKamera[i].harga << " per hari" << endl;
+        cout << endl << "daftar kamera" << endl; // header daftar
+        for (int i = 0; i < jumlahKamera; i++) { // loop daftar kamera
+            cout << i + 1 << ". " << daftarKamera[i].nama << " - harga: " << daftarKamera[i].harga << " per hari" << endl; // tampil kamera
         }
 
-        cout << endl << "pilih kamera: "; cin >> pilihan;
-        if (pilihan < 1 || pilihan > jumlahKamera) {
-            cout << "pilihan salah" << endl;
-            cin.ignore();
-            tekanEnter();
-            return;
+        cout << endl << "pilih kamera: "; cin >> pilihan; // input pilihan
+        if (pilihan < 1 || pilihan > jumlahKamera) { // validasi pilihan
+            cout << "pilihan salah" << endl; // pesan salah
+            cin.ignore();   // bersihkan buffer
+            tekanEnter();   // jeda
+            return;         // batal
         }
 
-        cout << "lama sewa (hari): "; cin >> lama;
+        cout << "lama sewa (hari): "; cin >> lama; // input lama sewa
 
-        int total = daftarKamera[pilihan - 1].harga * lama;
-        double diskon = 0;
+        int total = daftarKamera[pilihan - 1].harga * lama; // hitung total
+        double diskon = 0;  // inisialisasi diskon
 
-        if (lama >= 7) diskon = 0.20;
-        else if (lama >= 3) diskon = 0.10;
+        if (lama >= 7) diskon = 0.20; // diskon 1 minggu
+        else if (lama >= 3) diskon = 0.10; // diskon 3 hari
 
-        int potongan = (int)(total * diskon);
-        int totalBayar = total - potongan;
+        int potongan = (int)(total * diskon); // hitung nominal diskon
+        int totalBayar = total - potongan; // hitung bayar akhir
 
-        cout << endl << "=== struk sewa ===" << endl;
-        cout << "harga normal: rp " << total << endl;
-        cout << "diskon: " << (int)(diskon * 100) << "%" << endl;
-        cout << "potongan: rp " << potongan << endl;
-        cout << "total bayar: rp " << totalBayar << endl;
+        cout << endl << "struk sewa" << endl; // judul struk
+        cout << "harga normal: rp " << total << endl; // tampil harga asli
+        cout << "diskon: " << (int)(diskon * 100) << "%" << endl; // tampil persentase
+        cout << "potongan: rp " << potongan << endl; // tampil potongan
+        cout << "total bayar: rp " << totalBayar << endl; // tampil total
 
-        while (true) {
-            cout << "uang bayar: rp "; cin >> bayar;
-            if (bayar >= totalBayar) break;
-            cout << "uang kurang" << endl;
+        while (true) {      // loop pembayaran
+            cout << "uang bayar: rp "; cin >> bayar; // input uang
+            if (bayar >= totalBayar) break; // cek kecukupan
+            cout << "uang kurang" << endl; // pesan kurang
         }
 
-        cout << "kembalian: rp " << bayar - totalBayar << endl;
+        cout << "kembalian: rp " << bayar - totalBayar << endl; // tampil kembalian
         
-        daftarTransaksi[jumlahTransaksi].id = nomorTransaksi;
-        daftarTransaksi[jumlahTransaksi].namaPenyewa = nama;
-        daftarTransaksi[jumlahTransaksi].namaKamera = daftarKamera[pilihan - 1].nama;
-        daftarTransaksi[jumlahTransaksi].hargaSewa = daftarKamera[pilihan - 1].harga;
-        daftarTransaksi[jumlahTransaksi].lamaSewa = lama;
-        daftarTransaksi[jumlahTransaksi].status = 1;
+        daftarTransaksi[jumlahTransaksi].id = nomorTransaksi; // simpan id
+        daftarTransaksi[jumlahTransaksi].namaPenyewa = nama; // simpan nama
+        daftarTransaksi[jumlahTransaksi].namaKamera = daftarKamera[pilihan - 1].nama; // simpan kamera
+        daftarTransaksi[jumlahTransaksi].hargaSewa = daftarKamera[pilihan - 1].harga; // simpan harga
+        daftarTransaksi[jumlahTransaksi].lamaSewa = lama; // simpan lama
+        daftarTransaksi[jumlahTransaksi].status = 1; // set status sewa
 
-        nomorTransaksi++;
-        jumlahTransaksi++;
-        totalPendapatan = totalPendapatan + totalBayar;
+        nomorTransaksi++;   // update nomor
+        jumlahTransaksi++;  // update jumlah
+        totalPendapatan = totalPendapatan + totalBayar; // update pendapatan
         
-        cin.ignore();
-        tekanEnter();
+        cin.ignore();       // bersihkan buffer
+        tekanEnter();       // jeda
     }
 
-    // fungsi untuk mengembalikan kamera
-    void prosesPengembalian() {
-        system("cls");
-        bool adaSewa = false; 
+    void prosesPengembalian() { // fungsi pengembalian
+        system("cls");      // bersihkan layar
+        bool adaSewa = false; // flag sewa aktif
         
-        cout << "=== daftar sewa aktif ===" << endl;
-        for (int i = 0; i < jumlahTransaksi; i++) {
-            if (daftarTransaksi[i].status == 1) {
+        cout << "daftar sewa aktif" << endl; // judul daftar
+        for (int i = 0; i < jumlahTransaksi; i++) { // loop transaksi
+            if (daftarTransaksi[i].status == 1) { // cek status aktif
                 cout << i + 1 << ". " << daftarTransaksi[i].namaPenyewa 
-                     << " - kamera: " << daftarTransaksi[i].namaKamera << endl;
-                adaSewa = true;
+                     << " - kamera: " << daftarTransaksi[i].namaKamera << endl; // tampil data
+                adaSewa = true; // tandai ditemukan
             }
         }
 
-        if (adaSewa == false) {
-            cout << "tidak ada sewa aktif" << endl;
-            tekanEnter();
-            return;
+        if (adaSewa == false) { // jika kosong
+            cout << "tidak ada sewa aktif" << endl; // pesan kosong
+            tekanEnter();   // jeda
+            return;         // kembali
         }
 
-        int pilih, telat;
-        cout << endl << "pilih nomor: "; cin >> pilih;
+        int pilih, telat;   // variabel input
+        cout << endl << "pilih nomor: "; cin >> pilih; // pilih transaksi
         
         if (pilih < 1 || pilih > jumlahTransaksi || 
-            daftarTransaksi[pilih - 1].status == 0) {
-            cout << "tidak valid" << endl;
-            cin.ignore();
-            tekanEnter();
-            return;
+            daftarTransaksi[pilih - 1].status == 0) { // validasi pilihan
+            cout << "tidak valid" << endl; // pesan salah
+            cin.ignore();   // bersihkan buffer
+            tekanEnter();   // jeda
+            return;         // batal
         }
 
-        cout << "telat (hari): "; cin >> telat;
+        cout << "telat (hari): "; cin >> telat; // input keterlambatan
         
-        if (telat > 0) {
-            int denda = telat * 50000;
-            cout << "denda: rp " << denda << endl;
-            totalPendapatan = totalPendapatan + denda;
+        if (telat > 0) {    // jika terlambat
+            int denda = telat * 50000; // hitung denda
+            cout << "denda: rp " << denda << endl; // tampil denda
+            totalPendapatan = totalPendapatan + denda; // update pendapatan
         }
 
-        daftarTransaksi[pilih - 1].status = 0;
-        cout << "kamera kembali" << endl;
-        cin.ignore();
-        tekanEnter();
+        daftarTransaksi[pilih - 1].status = 0; // ubah status kembali
+        cout << "kamera kembali" << endl; // pesan sukses
+        cin.ignore();       // bersihkan buffer
+        tekanEnter();       // jeda
     }
 
-    // fungsi untuk mengurutkan harga kamera
-    void sortKamera() {
-        system("cls");
-        int tipe;
-        cout << "1. termurah ke termahal" << endl;
-        cout << "2. termahal ke termurah" << endl;
-        cout << "pilih: "; cin >> tipe;
-        cin.ignore(); // clean
+    void sortKamera() {     // fungsi urutkan
+        system("cls");      // bersihkan layar
+        int tipe;           // variabel tipe urut
+        cout << "1. termurah ke termahal" << endl; // opsi 1
+        cout << "2. termahal ke termurah" << endl; // opsi 2
+        cout << "pilih: "; cin >> tipe; // input pilihan
+        cin.ignore();       // bersihkan buffer
 
-        for (int i = 0; i < jumlahKamera - 1; i++) {
-            for (int j = 0; j < jumlahKamera - i - 1; j++) {
-                bool tukar = false;
-                if (tipe == 1 && daftarKamera[j].harga > daftarKamera[j+1].harga) tukar = true;
-                if (tipe == 2 && daftarKamera[j].harga < daftarKamera[j+1].harga) tukar = true;
+        for (int i = 0; i < jumlahKamera - 1; i++) { // loop bubble sort
+            for (int j = 0; j < jumlahKamera - i - 1; j++) { // loop dalam
+                bool tukar = false; // flag tukar
+                if (tipe == 1 && daftarKamera[j].harga > daftarKamera[j+1].harga) tukar = true; // cek naik
+                if (tipe == 2 && daftarKamera[j].harga < daftarKamera[j+1].harga) tukar = true; // cek turun
                 
-                if (tukar == true) {
-                    DataKamera temp = daftarKamera[j];
-                    daftarKamera[j] = daftarKamera[j+1];
-                    daftarKamera[j+1] = temp;
+                if (tukar == true) { // jika perlu tukar
+                    DataKamera temp = daftarKamera[j]; // simpan sementara
+                    daftarKamera[j] = daftarKamera[j+1]; // tukar posisi
+                    daftarKamera[j+1] = temp; // kembalikan nilai
                 }
             }
         }
 
-        cout << endl << "=== hasil urut ===" << endl;
-        for (int k = 0; k < jumlahKamera; k++) {
-            cout << daftarKamera[k].nama << " - harga: " << daftarKamera[k].harga << endl;
+        cout << endl << "hasil urut" << endl; // judul hasil
+        for (int k = 0; k < jumlahKamera; k++) { // loop hasil
+            cout << daftarKamera[k].nama << " - harga: " << daftarKamera[k].harga << endl; // tampil data
         }
-        tekanEnter();
+        tekanEnter();       // jeda
     }
 
-    // fungsi untuk melihat pendapatan
-    void laporanPendapatan() {
-        system("cls");
-        cout << "=== laporan pendapatan ===" << endl;
-        cout << "total transaksi: " << nomorTransaksi - 1 << endl;
-        cout << "total pendapatan: rp " << totalPendapatan << endl;
-        tekanEnter();
+    void laporanPendapatan() { // fungsi laporan
+        system("cls");      // bersihkan layar
+        cout << "laporan pendapatan" << endl; // judul laporan
+        cout << "total transaksi: " << nomorTransaksi - 1 << endl; // tampil jumlah
+        cout << "total pendapatan: rp " << totalPendapatan << endl; // tampil uang
+        tekanEnter();       // jeda
     }
 
-    // fungsi untuk menjalankan aplikasi
-    void jalankan() {
-        while (true) {
-            login();
-            tampilkanMenu();
+    // sistem utama
+    void jalankan() {       // fungsi utama jalan
+        while (true) {      // loop utama
+            login();        // panggil login
+            tampilkanMenu(); // panggil menu
         }
     }
 };
 
-int main() {
-    RentalSystem app;
-    app.jalankan();
-    return 0;
+int main() {                // fungsi main program
+    RentalSystem app;       // buat objek sistem (untuk running)
+    app.jalankan();         // jalankan sistem
+    return 0;               // program selesai
 }
