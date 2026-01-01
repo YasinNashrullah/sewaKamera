@@ -90,10 +90,7 @@ struct RentalSystem {       // struktur utama sistem
                 case 2: prosesPengembalian(); break; // jalankan kembali
                 case 3: sortKamera(); break; // jalankan urut
                 case 4: laporanPendapatan(); break; // jalankan laporan
-                case 5:     // menu keluar
-                    cout << "log out berhasil" << endl; // pesan keluar
-                    tekanEnter(); // jeda sebentar
-                    return; // keluar fungsi
+                case 5: logout(); break; // menu keluar
                 default:    // pilihan salah
                     cout << "menu tidak ada" << endl; // pesan salah
                     tekanEnter(); // jeda sebentar
@@ -248,6 +245,13 @@ struct RentalSystem {       // struktur utama sistem
         cout << "total transaksi: " << nomorTransaksi - 1 << endl; // tampil jumlah
         cout << "total pendapatan: rp " << totalPendapatan << endl; // tampil uang
         tekanEnter();       // jeda
+    }
+
+    void logout() {         // fungsi logout
+        system("cls");      // bersihkan layar
+        cout << "log out berhasil" << endl; // pesan keluar
+        tekanEnter(); // jeda sebentar
+        return; // keluar fungsi
     }
 
     // sistem utama
