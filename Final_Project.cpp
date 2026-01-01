@@ -57,17 +57,17 @@ struct RentalSystem {       // struktur utama sistem
     void login() {          // fungsi login admin
         string user, pass;  // variabel user dan password
         while (true) {      // loop login selamanya
-            system("cls");  // bersihkan layar
+            system("cls");  // fungsi bersihkan layar
             cout << "login admin" << endl; // judul login
             cout << "username: "; cin >> user; // input username
             cout << "password: "; cin >> pass; // input password
             cin.ignore();   // bersihkan buffer input
 
             if (user == "admin" && pass == "12") { // cek kredensial
-                break;      // keluar loop jika benar
+                break;      // keluar dari loop jika benar
             } else {        // jika salah
-                cout << "login gagal" << endl; // pesan gagal
-                tekanEnter(); // minta tekan enter
+                cout << "login gagal" << endl; // validasi login gagal
+                tekanEnter(); // fungsi tekan enter, jeda sampai user menekan enter
             }
         }
     }
@@ -86,24 +86,24 @@ struct RentalSystem {       // struktur utama sistem
             cin.ignore();   // bersihkan buffer
 
             switch (menu) { // seleksi menu
-                case 1: prosesSewa(); break; // jalankan sewa
-                case 2: prosesPengembalian(); break; // jalankan kembali
-                case 3: sortKamera(); break; // jalankan urut
-                case 4: laporanPendapatan(); break; // jalankan laporan
-                case 5: logout(); break; // menu keluar
-                default:    // pilihan salah
-                    cout << "menu tidak ada" << endl; // pesan salah
-                    tekanEnter(); // jeda sebentar
+                case 1: prosesSewa(); break; // jalankan fungsi sewa
+                case 2: prosesPengembalian(); break; // jalankan fungsi kembali
+                case 3: sortKamera(); break; // jalankan fungsi urut
+                case 4: laporanPendapatan(); break; // jalankan fungsi laporan
+                case 5: logout(); break; // jalankan fungsi logout
+                default:    // validasi jika pilihan tidak ada di data
+                    cout << "menu tidak ada" << endl; // validasi menu tidak ada
+                    tekanEnter(); // fungsi tekan enter, jeda sampai user menekan enter
             }
-        } while (true);     // ulangi terus
+        } while (true);     // ulangi terus jika proses switch case menampilkan pilihan default
     }
 
     // fitur utama
     void prosesSewa() {     // fungsi proses sewa
-        system("cls");      // bersihkan layar
+        system("cls");      // fungsi bersihkan layar
         if (jumlahTransaksi >= 100) { // cek kapasitas array
             cout << "penyimpanan penuh" << endl; // pesan penuh
-            tekanEnter();   // jeda
+            tekanEnter();   // fungsi tekan enter, jeda sampai user menekan enter
             return;         // batal sewa
         }
 
@@ -111,7 +111,7 @@ struct RentalSystem {       // struktur utama sistem
         int pilihan, lama, bayar; // variabel input sewa
         
         cout << "nama pelanggan: "; // prompt nama
-        getline(cin, nama); // input nama lengkap
+        getline(cin, nama); // fungsi getline, untuk input beserta space
 
         cout << endl << "daftar kamera" << endl; // header daftar
         for (int i = 0; i < jumlahKamera; i++) { // loop daftar kamera
