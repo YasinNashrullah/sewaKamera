@@ -27,7 +27,7 @@ struct RentalSystem {       // struktur utama sistem
     int totalPendapatan;    // total pendapatan rental
     int nomorTransaksi;     // counter nomor transaksi
 
-    // konstruktor
+    // konstruktor data kamera
     RentalSystem() {        // konstruktor sistem
         jumlahKamera = 0;   // inisialisasi jumlah kamera
         jumlahTransaksi = 0; // inisialisasi jumlah transaksi
@@ -82,6 +82,7 @@ struct RentalSystem {       // struktur utama sistem
             cout << "3. urutkan harga kamera" << endl; // menu 3
             cout << "4. laporan pendapatan" << endl; // menu 4
             cout << "5. logout" << endl; // menu 5
+            cout << "6. daftar kamera" << endl; // menu 6
             cout << "pilih menu: "; cin >> menu; // input pilihan
             cin.ignore();   // bersihkan buffer
 
@@ -91,6 +92,7 @@ struct RentalSystem {       // struktur utama sistem
                 case 3: sortKamera(); break; // jalankan fungsi urut
                 case 4: laporanPendapatan(); break; // jalankan fungsi laporan
                 case 5: logout(); break; // jalankan fungsi logout
+                case 6: RentalSystem(); break;
                 default:    // validasi jika pilihan tidak ada di data
                     cout << "menu tidak ada" << endl; // validasi menu tidak ada
                     tekanEnter(); // fungsi tekan enter, jeda sampai user menekan enter
