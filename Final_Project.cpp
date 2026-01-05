@@ -89,6 +89,7 @@ struct RentalSystem { // struktur utama sistem
             cout << "3. urutkan harga kamera" << endl; // menu 3
             cout << "4. laporan pendapatan" << endl; // menu 4
             cout << "5. logout" << endl; // menu 5
+            cout << "6. daftar kamera" << endl; // menu 6
             cout << "pilih menu: "; cin >> menu; // input pilihan
             cin.ignore(); // bersihkan inputan
 
