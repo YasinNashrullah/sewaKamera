@@ -90,7 +90,7 @@ struct RentalSystem { // struktur utama sistem
             cout << "4. laporan pendapatan" << endl; // menu 4
             cout << "5. logout" << endl; // menu 5
             cout << "pilih menu: "; cin >> menu; // input pilihan
-            cin.ignore(); // bersihkan buffer
+            cin.ignore(); // bersihkan inputan
 
             switch (menu) { // seleksi menu
                 case 1: prosesSewa(); break; // jalankan fungsi sewa
@@ -221,7 +221,6 @@ struct RentalSystem { // struktur utama sistem
         cout << "kamera kembali" << endl; // pesan sukses
         cin.ignore(); // bersihkan buffer
         tekanEnter(); // jeda sebentar
-    
 
     }
 

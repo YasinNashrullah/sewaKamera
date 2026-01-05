@@ -1,27 +1,29 @@
+// =================== PERSON 1: DATA STRUCTURES & SETUP ===================
 #include <iostream>
 #include <string>
 #include <cstdlib>
 
 using namespace std;
 
-// struktur data
-// Struct untuk menyimpan data kamera yang tersedia untuk disewa
+// struktur data untuk kamera
 struct DataKamera {
     string nama;
     int harga;
-};
+}; 
 
-// Struct untuk mencatat data transaksi penyewaan
+// struktur data untuk transaksi
 struct Transaksi {
     int id;
     string namaPenyewa;
     string namaKamera;
     int hargaSewa;
     int lamaSewa;
-    int status;
+    int status; // 1 disewa 0 dikembalikan
 };
 
+// struct utama sistem rental
 struct RentalSystem {
+    // data global dalam struct
     DataKamera daftarKamera[100];
     Transaksi daftarTransaksi[100];
     int jumlahKamera;
@@ -29,13 +31,14 @@ struct RentalSystem {
     int totalPendapatan;
     int nomorTransaksi;
 
-    // Constructor: Inisialisasi data awal sistem saat program dijalankan
+    // konstruktor untuk menyiapkan data awal
     RentalSystem() {
         jumlahKamera = 0;
         jumlahTransaksi = 0;
         totalPendapatan = 0;
         nomorTransaksi = 1;
 
+        // data awal kamera
         daftarKamera[jumlahKamera].nama = "Canon EOS 90D";
         daftarKamera[jumlahKamera].harga = 150000;
         jumlahKamera++;
@@ -49,13 +52,14 @@ struct RentalSystem {
         jumlahKamera++;
     }
 
-    // Fungsi pembantu untuk menjeda program agar user bisa membaca output
+    // =================== PERSON 2: AUTHENTICATION & UTILS ===================
+    // fungsi bantuan untuk pause
     void tekanEnter() {
         cout << "tekan enter untuk lanjut...";
-        cin.get();
+        cin.get(); 
     }
 
-    // Fungsi untuk autentikasi admin sebelum masuk ke sistem utama
+    // fungsi untuk masuk sebagai admin
     void login() {
         string user, pass;
         while (true) {
@@ -74,7 +78,8 @@ struct RentalSystem {
         }
     }
 
-    // Menampilkan menu utama dan menangani navigasi pilihan user
+    // =================== PERSON 3: MENU & MAIN LOOP ===================
+    // fungsi untuk menampilkan menu utama
     void tampilkanMenu() {
         int menu;
         do {
@@ -86,22 +91,22 @@ struct RentalSystem {
             cout << "4. laporan pendapatan" << endl;
             cout << "5. logout" << endl;
             cout << "pilih menu: "; cin >> menu;
-            cin.ignore();
+            cin.ignore(); // bersihkan enter
 
             switch (menu) {
                 case 1: prosesSewa(); break;
                 case 2: prosesPengembalian(); break;
                 case 3: sortKamera(); break;
                 case 4: laporanPendapatan(); break;
-                case 5: logout(); return;
-                default:
-                    cout << "menu tidak ada" << endl;
+                case 5: logout(); break;
+                default: 
+                    cout << "menu tidak ada" << endl; 
                     tekanEnter();
             }
         } while (true);
     }
 
-    // Menangani proses penyewaan kamera: input data, hitung biaya, dan simpan transaksi
+    // =================== PERSON 4: RENTAL TRANSACTION ===================
     void prosesSewa() {
         system("cls");
         if (jumlahTransaksi >= 100) {
@@ -161,17 +166,18 @@ struct RentalSystem {
         daftarTransaksi[jumlahTransaksi].lamaSewa = lama;
         daftarTransaksi[jumlahTransaksi].status = 1;
 
-        nomorTransaksi++;   
-        jumlahTransaksi++;  
-        totalPendapatan = totalPendapatan + totalBayar; 
+        nomorTransaksi++;
+        jumlahTransaksi++;
+        totalPendapatan = totalPendapatan + totalBayar;
         
-        cin.ignore();       
-        tekanEnter();       
+        cin.ignore();
+        tekanEnter();
     }
 
-    // Menangani pengembalian kamera: cek denda keterlambatan dan update status transaksi
+    // =================== PERSON 5: RETURN TRANSACTION ===================
+    // fungsi untuk mengembalikan kamera
     void prosesPengembalian() {
-        system("cls");      
+        system("cls");
         bool adaSewa = false; 
         
         cout << "daftar sewa aktif" << endl;
@@ -179,53 +185,54 @@ struct RentalSystem {
             if (daftarTransaksi[i].status == 1) {
                 cout << i + 1 << ". " << daftarTransaksi[i].namaPenyewa 
                      << " - kamera: " << daftarTransaksi[i].namaKamera << endl;
-                adaSewa = true; 
+                adaSewa = true;
             }
         }
 
-        if (adaSewa == false) { 
-            cout << "tidak ada sewa aktif" << endl; 
-            tekanEnter();   
-            return;         
+        if (adaSewa == false) {
+            cout << "tidak ada sewa aktif" << endl;
+            tekanEnter();
+            return;
         }
 
-        int pilih, telat;   
-        cout << endl << "pilih nomor: "; cin >> pilih; 
+        int pilih, telat;
+        cout << endl << "pilih nomor: "; cin >> pilih;
         
         if (pilih < 1 || pilih > jumlahTransaksi || 
-            daftarTransaksi[pilih - 1].status == 0) { 
-            cout << "tidak valid" << endl; 
-            cin.ignore();   
-            tekanEnter();   
-            return;         
+            daftarTransaksi[pilih - 1].status == 0) {
+            cout << "tidak valid" << endl;
+            cin.ignore();
+            tekanEnter();
+            return;
         }
 
         cout << "telat (hari): "; cin >> telat;
         
         if (telat > 0) {
-            int denda = telat * 50000; 
-            cout << "denda: rp " << denda << endl; 
-            totalPendapatan = totalPendapatan + denda; 
+            int denda = telat * 50000;
+            cout << "denda: rp " << denda << endl;
+            totalPendapatan = totalPendapatan + denda;
         }
 
-        daftarTransaksi[pilih - 1].status = 0; 
+        daftarTransaksi[pilih - 1].status = 0;
         cout << "kamera kembali" << endl;
         cin.ignore();
-        tekanEnter();       
+        tekanEnter();
     }
 
-    // Mengurutkan daftar kamera berdasarkan harga menggunakan Bubble Sort
-    void sortKamera() {     
-        system("cls");      
-        int tipe;           
+    // =================== PERSON 6: SORTING & REPORTS ===================
+    // fungsi untuk mengurutkan harga kamera
+    void sortKamera() {
+        system("cls");
+        int tipe;
         cout << "1. termurah ke termahal" << endl;
-        cout << "2. termahal ke termurah" << endl; 
-        cout << "pilih: "; cin >> tipe; 
-        cin.ignore();       
+        cout << "2. termahal ke termurah" << endl;
+        cout << "pilih: "; cin >> tipe;
+        cin.ignore(); // clean
 
         for (int i = 0; i < jumlahKamera - 1; i++) {
             for (int j = 0; j < jumlahKamera - i - 1; j++) {
-                bool tukar = false; 
+                bool tukar = false;
                 if (tipe == 1 && daftarKamera[j].harga > daftarKamera[j+1].harga) tukar = true;
                 if (tipe == 2 && daftarKamera[j].harga < daftarKamera[j+1].harga) tukar = true;
                 
@@ -238,22 +245,21 @@ struct RentalSystem {
         }
 
         cout << endl << "hasil urut" << endl; 
-        for (int k = 0; k < jumlahKamera; k++) { 
-            cout << daftarKamera[k].nama << " - harga: " << daftarKamera[k].harga << endl; 
+        for (int k = 0; k < jumlahKamera; k++) {
+            cout << daftarKamera[k].nama << " - harga: " << daftarKamera[k].harga << endl;
         }
-        tekanEnter();       
+        tekanEnter();
     }
 
-    // Menampilkan laporan ringkas jumlah transaksi dan total pendapatan
-    void laporanPendapatan() { 
-        system("cls");      
+    // fungsi untuk melihat pendapatan
+    void laporanPendapatan() {
+        system("cls");
         cout << "laporan pendapatan" << endl;
-        cout << "total transaksi: " << nomorTransaksi - 1 << endl; 
-        cout << "total pendapatan: rp " << totalPendapatan << endl; 
-        tekanEnter();       
+        cout << "total transaksi: " << nomorTransaksi - 1 << endl;
+        cout << "total pendapatan: rp " << totalPendapatan << endl;
+        tekanEnter();
     }
 
-    // Keluar dari sesi admin dan kembali ke halaman login
     void logout() {         
         system("cls");      
         cout << "log out berhasil" << endl; 
@@ -261,17 +267,16 @@ struct RentalSystem {
         return; 
     }
 
-    // Loop utama aplikasi yang menghubungkan login dan menu
-    void jalankan() {       
-        while (true) {      
-            login();        
-            tampilkanMenu(); 
+    void jalankan() {
+        while (true) {
+            login();
+            tampilkanMenu();
         }
     }
 };
 
-int main() {                
-    RentalSystem app;       
-    app.jalankan();         
-    return 0;               
+int main() {
+    RentalSystem app;
+    app.jalankan();
+    return 0;
 }
