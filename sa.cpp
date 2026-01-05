@@ -5,11 +5,13 @@
 using namespace std;
 
 // struktur data
+// Struct untuk menyimpan data kamera yang tersedia untuk disewa
 struct DataKamera {
     string nama;
     int harga;
 };
 
+// Struct untuk mencatat data transaksi penyewaan
 struct Transaksi {
     int id;
     string namaPenyewa;
@@ -27,6 +29,7 @@ struct RentalSystem {
     int totalPendapatan;
     int nomorTransaksi;
 
+    // Constructor: Inisialisasi data awal sistem saat program dijalankan
     RentalSystem() {
         jumlahKamera = 0;
         jumlahTransaksi = 0;
@@ -46,11 +49,13 @@ struct RentalSystem {
         jumlahKamera++;
     }
 
+    // Fungsi pembantu untuk menjeda program agar user bisa membaca output
     void tekanEnter() {
         cout << "tekan enter untuk lanjut...";
         cin.get();
     }
 
+    // Fungsi untuk autentikasi admin sebelum masuk ke sistem utama
     void login() {
         string user, pass;
         while (true) {
@@ -69,6 +74,7 @@ struct RentalSystem {
         }
     }
 
+    // Menampilkan menu utama dan menangani navigasi pilihan user
     void tampilkanMenu() {
         int menu;
         do {
@@ -95,6 +101,7 @@ struct RentalSystem {
         } while (true);
     }
 
+    // Menangani proses penyewaan kamera: input data, hitung biaya, dan simpan transaksi
     void prosesSewa() {
         system("cls");
         if (jumlahTransaksi >= 100) {
@@ -162,6 +169,7 @@ struct RentalSystem {
         tekanEnter();       
     }
 
+    // Menangani pengembalian kamera: cek denda keterlambatan dan update status transaksi
     void prosesPengembalian() {
         system("cls");      
         bool adaSewa = false; 
@@ -206,6 +214,7 @@ struct RentalSystem {
         tekanEnter();       
     }
 
+    // Mengurutkan daftar kamera berdasarkan harga menggunakan Bubble Sort
     void sortKamera() {     
         system("cls");      
         int tipe;           
@@ -235,6 +244,7 @@ struct RentalSystem {
         tekanEnter();       
     }
 
+    // Menampilkan laporan ringkas jumlah transaksi dan total pendapatan
     void laporanPendapatan() { 
         system("cls");      
         cout << "laporan pendapatan" << endl;
@@ -243,6 +253,7 @@ struct RentalSystem {
         tekanEnter();       
     }
 
+    // Keluar dari sesi admin dan kembali ke halaman login
     void logout() {         
         system("cls");      
         cout << "log out berhasil" << endl; 
@@ -250,6 +261,7 @@ struct RentalSystem {
         return; 
     }
 
+    // Loop utama aplikasi yang menghubungkan login dan menu
     void jalankan() {       
         while (true) {      
             login();        
