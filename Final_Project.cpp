@@ -1,22 +1,22 @@
-#include <iostream>         // pustaka input output
-#include <string>           // pustaka untuk string
-#include <cstdlib>          // pustaka sistem
+#include <iostream> // pustaka input output
+#include <string> // pustaka untuk string
+#include <cstdlib> // pustaka sistem
 
-using namespace std;        // menggunakan namespace standar
+using namespace std; // menggunakan namespace standar
 
 // struktur data
-struct DataKamera {         // definisi struktur data
-    string nama;            // variabel nama kamera
-    int harga;              // variabel harga sewa
+struct DataKamera {// definisi struktur data
+    string nama; // variabel nama kamera
+    int harga; // variabel harga sewa
 };
 
-struct Transaksi {          // struktur data transaksi
-    int id;                 // id transaksi
-    string namaPenyewa;     // nama penyewa
-    string namaKamera;      // nama kamera disewa
-    int hargaSewa;          // harga sewa per hari
-    int lamaSewa;           // durasi sewa
-    int status;             // status sewa 1 aktif 0 kembali
+struct Transaksi { // struktur data transaksi
+    int id; // id transaksi
+    string namaPenyewa; // nama penyewa
+    string namaKamera; // nama kamera disewa
+    int hargaSewa; // harga sewa per hari
+    int lamaSewa; // durasi sewa
+    int status; // status sewa 1 aktif 0 kembali
 };
 
 struct RentalSystem {       // struktur utama sistem
@@ -90,7 +90,7 @@ struct RentalSystem {       // struktur utama sistem
                 case 2: prosesPengembalian(); break; // jalankan kembali
                 case 3: sortKamera(); break; // jalankan urut
                 case 4: laporanPendapatan(); break; // jalankan laporan
-                case 5: logout(); break; // menu keluar
+                case 5: logout(); return; // menu keluar/logout
                 default:    // pilihan salah
                     cout << "menu tidak ada" << endl; // pesan salah
                     tekanEnter(); // jeda sebentar
