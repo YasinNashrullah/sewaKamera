@@ -251,7 +251,7 @@ struct RentalSystem {       // struktur utama sistem
         system("cls");      // bersihkan layar
         cout << "log out berhasil" << endl; // pesan keluar
         tekanEnter(); // jeda sebentar
-        return; // keluar fungsi
+        return login(); // keluar fungsi
     }
 
     // sistem utama
